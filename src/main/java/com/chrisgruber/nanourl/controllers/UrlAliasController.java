@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/urlalias")
+@RequestMapping("/api/urlalias")
 public class UrlAliasController {
     @Autowired
     private UrlAliasRepository repository;
