@@ -1,10 +1,13 @@
 package com.chrisgruber.nanourl.controllers;
 
+import com.chrisgruber.nanourl.exceptions.NanoUrlEntityNotFoundException;
+import com.chrisgruber.nanourl.exceptions.NanoUrlEntitySaveException;
 import com.chrisgruber.nanourl.models.Counter;
 import com.chrisgruber.nanourl.models.UrlAlias;
 import com.chrisgruber.nanourl.repositories.CounterRepository;
 import com.chrisgruber.nanourl.repositories.UrlAliasRepository;
 import com.chrisgruber.nanourl.services.UrlInversionService;
+import com.mongodb.MongoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,9 @@ public class UrlAliasController {
 
     @Autowired
     private CounterRepository counterRepository;
+
+    @Autowired
+    private UrlInversionService urlInversionService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<UrlAlias> getAllUrlAlias() {
@@ -38,17 +44,30 @@ public class UrlAliasController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public UrlAlias createUrlAlias(@Valid @RequestBody UrlAlias urlAlias) {
-        Counter urlAliasCounter = counterRepository.findById("urlAlias").get();
+        Counter urlAliasCounter = null;
+        final String urlAliasCounterName = "urlAlias";
+
+        try {
+            urlAliasCounter = counterRepository.findById(urlAliasCounterName).get();
+        } catch (MongoException e) {
+            // Return HTTP Status 404
+            throw new NanoUrlEntityNotFoundException();
+        }
+
         urlAliasCounter.sequenceValue += 1;
 
-        UrlInversionService urlInversionService = new UrlInversionService();
         String nextEncodedUrlAliasId = urlInversionService.Encode(urlAliasCounter.sequenceValue);
 
         urlAlias.set_id(urlAliasCounter.sequenceValue);
         urlAlias.set_aliasUrl(nextEncodedUrlAliasId);
 
-        repository.save(urlAlias);
-        counterRepository.save(urlAliasCounter);
+        try {
+            repository.save(urlAlias);
+            counterRepository.save(urlAliasCounter);
+        } catch (MongoException e) {
+            // Return HTTP Status 500
+            throw new NanoUrlEntitySaveException();
+        }
 
         return urlAlias;
     }

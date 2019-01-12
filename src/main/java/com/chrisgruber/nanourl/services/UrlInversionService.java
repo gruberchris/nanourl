@@ -1,5 +1,8 @@
 package com.chrisgruber.nanourl.services;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class UrlInversionService {
     private String alphabet;
     private int base;
