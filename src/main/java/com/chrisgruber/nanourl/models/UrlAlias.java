@@ -4,25 +4,49 @@ import org.springframework.data.annotation.Id;
 
 public class UrlAlias {
     @Id
-    public int id;
+    private int id;
+    private String url;
+    private String aliasUrl;
+    private String aliasPath;
 
-    public String url;
-    public String aliasUrl;
+    public String getAliasPath() {
+        return aliasPath;
+    }
+
+    public void setAliasPath(String aliasPath) {
+        this.aliasPath = aliasPath;
+    }
 
     public UrlAlias() {}
 
-    public UrlAlias(int id, String url, String aliasUrl) {
+    public UrlAlias(int id, String url, String aliasUrl, String aliasPath) {
         this.id = id;
         this.url = url;
         this.aliasUrl = aliasUrl;
+        this.aliasPath = aliasPath;
     }
 
-    public int get_id() { return this.id; }
-    public void set_id(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String get_url() { return this.url; }
-    public void set_url(String url) { this.url = url; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String get_aliasUrl() { return this.aliasUrl; }
-    public void set_aliasUrl(String aliasUrl) { this.aliasUrl = aliasUrl; }
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getAliasUrl() {
+        return aliasUrl;
+    }
+
+    public void setAliasUrl(String aliasUrl) {
+        this.aliasUrl = aliasUrl;
+    }
 }

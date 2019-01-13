@@ -4,8 +4,8 @@ import org.springframework.data.annotation.Id;
 
 public class Counter {
     @Id
-    public String id;
-    public int sequenceValue;
+    private String id;
+    private int sequenceValue;
 
     public Counter() {
     }
@@ -15,19 +15,19 @@ public class Counter {
         this.sequenceValue = sequenceValue;
     }
 
-    public String get_id() {
-        return this.id;
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int get_sequenceValue() {
-        return this.sequenceValue;
+    public int getSequenceValue() {
+        return sequenceValue;
     }
 
-    public void set_sequenceValue(int sequenceValue) {
+    public void setSequenceValue(int sequenceValue) {
         this.sequenceValue = sequenceValue;
     }
 }
