@@ -67,7 +67,7 @@ public class UrlAliasController {
         String nextEncodedUrlAliasId = urlInversionService.Encode(urlAliasCounter.getSequenceValue());
 
         urlAlias.setId(urlAliasCounter.getSequenceValue());
-        urlAlias.setAliasUrl(this.defaultScheme + "://" + this.defaultHost + "/" + nextEncodedUrlAliasId);
+        urlAlias.setAliasUrl(this.defaultScheme + "://" + this.defaultHost + "/u/" + nextEncodedUrlAliasId);
         urlAlias.setAliasPath(nextEncodedUrlAliasId);
 
         try {
