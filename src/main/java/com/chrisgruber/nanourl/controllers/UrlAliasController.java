@@ -28,8 +28,11 @@ public class UrlAliasController {
     @Autowired
     private UrlInversionService urlInversionService;
 
-    @Value("${nanourl.defaultHostName}")
-    private String defaultHostName;
+    @Value("${nanourl.defaultHost}")
+    private String defaultHost;
+
+    @Value("${nanourl.defaultScheme}")
+    private String defaultScheme;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<UrlAlias> getAllUrlAlias() {
@@ -43,7 +46,7 @@ public class UrlAliasController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void modifyUrlAliasById(@PathVariable("id") int id, @Valid @RequestBody UrlAlias urlAlias) {
-        urlAlias.set_id(id);
+        urlAlias.setId(id);
         repository.save(urlAlias);
     }
 
@@ -59,12 +62,13 @@ public class UrlAliasController {
             throw new NanoUrlEntityNotFoundException();
         }
 
-        urlAliasCounter.sequenceValue += 1;
+        urlAliasCounter.setSequenceValue(urlAliasCounter.getSequenceValue() + 1);
 
-        String nextEncodedUrlAliasId = urlInversionService.Encode(urlAliasCounter.sequenceValue);
+        String nextEncodedUrlAliasId = urlInversionService.Encode(urlAliasCounter.getSequenceValue());
 
-        urlAlias.set_id(urlAliasCounter.sequenceValue);
-        urlAlias.set_aliasUrl(this.defaultHostName + "/" + nextEncodedUrlAliasId);
+        urlAlias.setId(urlAliasCounter.getSequenceValue());
+        urlAlias.setAliasUrl(this.defaultScheme + "://" + this.defaultHost + "/" + nextEncodedUrlAliasId);
+        urlAlias.setAliasPath(nextEncodedUrlAliasId);
 
         try {
             repository.save(urlAlias);
