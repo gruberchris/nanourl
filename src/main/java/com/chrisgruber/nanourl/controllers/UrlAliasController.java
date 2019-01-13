@@ -9,10 +9,12 @@ import com.chrisgruber.nanourl.repositories.UrlAliasRepository;
 import com.chrisgruber.nanourl.services.UrlInversionService;
 import com.mongodb.MongoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/urlalias")
@@ -25,6 +27,9 @@ public class UrlAliasController {
 
     @Autowired
     private UrlInversionService urlInversionService;
+
+    @Value("${nanourl.defaultHostName}")
+    private String defaultHostName;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<UrlAlias> getAllUrlAlias() {
@@ -49,7 +54,7 @@ public class UrlAliasController {
 
         try {
             urlAliasCounter = counterRepository.findById(urlAliasCounterName).get();
-        } catch (MongoException e) {
+        } catch (NoSuchElementException e) {
             // Return HTTP Status 404
             throw new NanoUrlEntityNotFoundException();
         }
@@ -59,7 +64,7 @@ public class UrlAliasController {
         String nextEncodedUrlAliasId = urlInversionService.Encode(urlAliasCounter.sequenceValue);
 
         urlAlias.set_id(urlAliasCounter.sequenceValue);
-        urlAlias.set_aliasUrl(nextEncodedUrlAliasId);
+        urlAlias.set_aliasUrl(this.defaultHostName + "/" + nextEncodedUrlAliasId);
 
         try {
             repository.save(urlAlias);
