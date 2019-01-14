@@ -4,6 +4,7 @@ import com.chrisgruber.nanourl.exceptions.NanoUrlEntityNotFoundException;
 import com.chrisgruber.nanourl.exceptions.NanoUrlEntitySaveException;
 import com.chrisgruber.nanourl.models.Counter;
 import com.chrisgruber.nanourl.models.UrlAlias;
+import com.chrisgruber.nanourl.models.UserProfile;
 import com.chrisgruber.nanourl.repositories.CounterRepository;
 import com.chrisgruber.nanourl.repositories.UrlAliasRepository;
 import com.chrisgruber.nanourl.services.UrlInversionService;
@@ -69,6 +70,8 @@ public class UrlAliasController {
         urlAlias.setId(urlAliasCounter.getSequenceValue());
         urlAlias.setAliasUrl(this.defaultScheme + "://" + this.defaultHost + "/u/" + nextEncodedUrlAliasId);
         urlAlias.setAliasPath(nextEncodedUrlAliasId);
+        // TODO: Temp hard code a fake user profile
+        urlAlias.setOwnerUserProfile(new UserProfile(0, "noone@example.com"));
 
         try {
             repository.save(urlAlias);

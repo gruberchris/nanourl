@@ -1,12 +1,14 @@
 package com.chrisgruber.nanourl.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "userProfiles")
 public class UserProfile {
     @Id
     private int id;
+    @Indexed(unique = true)
     private String email;
 
     public UserProfile() {
