@@ -24,7 +24,12 @@ public class RedirectionController {
         this.urlAliasRepository = urlAliasRepository;
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
+    public String redirectNanoUrl() {
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String redirectNanoUrl(@PathVariable String id, HttpServletRequest request) {
         UrlAlias urlAlias = this.urlAliasRepository.findByAliasPath(id);
 
