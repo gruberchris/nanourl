@@ -1,13 +1,16 @@
 package com.chrisgruber.nanourl.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "urlAlias")
 public class UrlAlias {
     @Id
-    private int id;
+    private long id;
     private String url;
     private String aliasUrl;
     private String aliasPath;
+    private int totalRedirects;
 
     public String getAliasPath() {
         return aliasPath;
@@ -19,18 +22,19 @@ public class UrlAlias {
 
     public UrlAlias() {}
 
-    public UrlAlias(int id, String url, String aliasUrl, String aliasPath) {
+    public UrlAlias(long id, String url, String aliasUrl, String aliasPath, int totalRedirects) {
         this.id = id;
         this.url = url;
         this.aliasUrl = aliasUrl;
         this.aliasPath = aliasPath;
+        this.totalRedirects = totalRedirects;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -48,5 +52,19 @@ public class UrlAlias {
 
     public void setAliasUrl(String aliasUrl) {
         this.aliasUrl = aliasUrl;
+    }
+
+    public int getTotalRedirects() {
+        return totalRedirects;
+    }
+
+    public void setTotalRedirects(int totalRedirects) {
+        this.totalRedirects = totalRedirects;
+    }
+
+    @Override
+    public String toString() {
+        return "UrlAlias [id=" + this.id + ", url=" + this.url + ", aliasUrl="
+                + this.aliasUrl + ", aliasPath=" + this.aliasPath + ", totalRedirects=" + this.totalRedirects + "]";
     }
 }

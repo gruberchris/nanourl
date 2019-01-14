@@ -40,12 +40,12 @@ public class UrlAliasController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public UrlAlias getUrlAliasById(@PathVariable("id") int id) {
+    public UrlAlias getUrlAliasById(@PathVariable("id") long id) {
         return repository.findById(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void modifyUrlAliasById(@PathVariable("id") int id, @Valid @RequestBody UrlAlias urlAlias) {
+    public void modifyUrlAliasById(@PathVariable("id") long id, @Valid @RequestBody UrlAlias urlAlias) {
         urlAlias.setId(id);
         repository.save(urlAlias);
     }
@@ -82,7 +82,7 @@ public class UrlAliasController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUrlAlias(@PathVariable int id) {
+    public void deleteUrlAlias(@PathVariable long id) {
         repository.delete(repository.findById(id));
     }
 }

@@ -30,6 +30,9 @@ public class RedirectionController {
             return "redirect:/";
         }
 
+        urlAlias.setTotalRedirects(urlAlias.getTotalRedirects() + 1);
+        this.urlAliasRepository.save(urlAlias);
+
         request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
 
         return "redirect:" + urlAlias.getUrl();
