@@ -35,6 +35,9 @@ public class Counter {
 
     @Override
     public String toString() {
-        return "Counter [id=" + this.id + ", sequenceValue=" + this.sequenceValue + "]";
+        return "Counter{" +
+                "id='" + id + '\'' +
+                ", sequenceValue=" + sequenceValue +
+                '}';
     }
 }

@@ -20,7 +20,8 @@ public class UrlAlias {
         this.aliasPath = aliasPath;
     }
 
-    public UrlAlias() {}
+    public UrlAlias() {
+    }
 
     public UrlAlias(long id, String url, String aliasUrl, String aliasPath, int totalRedirects) {
         this.id = id;
@@ -64,7 +65,12 @@ public class UrlAlias {
 
     @Override
     public String toString() {
-        return "UrlAlias [id=" + this.id + ", url=" + this.url + ", aliasUrl="
-                + this.aliasUrl + ", aliasPath=" + this.aliasPath + ", totalRedirects=" + this.totalRedirects + "]";
+        return "UrlAlias{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", aliasUrl='" + aliasUrl + '\'' +
+                ", aliasPath='" + aliasPath + '\'' +
+                ", totalRedirects=" + totalRedirects +
+                '}';
     }
 }
