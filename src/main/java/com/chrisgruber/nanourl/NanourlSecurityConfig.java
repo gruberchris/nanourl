@@ -37,20 +37,14 @@ public class NanourlSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         JwtWebSecurityConfigurer
-                .forRS256(apiAudience, issuer)
-                .configure(http)
-                .cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.GET, "/u").permitAll()
-                .antMatchers(HttpMethod.GET, "/u/").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/urlalias").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/urlalias/").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/urlalias/").authenticated()
-                .antMatchers(HttpMethod.POST, "/api/urlalias/").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/urlalias/").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/userprofile/").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/api/userprofile/").authenticated()
-                .antMatchers(HttpMethod.POST, "/api/userprofile/").authenticated()
-                .antMatchers(HttpMethod.PUT, "/api/userprofile/").authenticated();
+            .forRS256(apiAudience, issuer)
+            .configure(http)
+            .cors().and().csrf().disable().authorizeRequests()
+            .antMatchers(HttpMethod.GET, "/").permitAll()
+            .antMatchers(HttpMethod.GET, "/u/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/**").authenticated()
+            .antMatchers(HttpMethod.POST, "/api/**").authenticated()
+            .antMatchers(HttpMethod.PUT, "/api/**").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/api/**").authenticated();
     }
 }
