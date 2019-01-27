@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": false,
+    "react/forbid-prop-types": false,
+    "react/no-unused-state": false,
+    "comma-dangle": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "plugins": [
+    "jsx-a11y"
+  ]
+}
